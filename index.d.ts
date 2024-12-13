@@ -4,31 +4,19 @@
  */
 
 // Main export functions
-export = translate;
+export default translate;
+export {
+	translate,
+	Translator,
+	speak,
+	singleTranslate,
+	batchTranslate,
+	languages,
+	isSupported,
+	getCode,
+};
 
-/**
- * Main translation function
- * @param input - Text, array, or object of texts to translate
- * @param opts - Translation options
- * @returns Promise resolving to translation response(s)
- */
-declare function translate<Input extends translate.Input>(
-	input: Input,
-	opts?: translate.RequestOptions,
-): translate.TranslationResponseStructure<Input>;
-
-declare namespace translate {
-	/**
-	 * Main translation function
-	 * @param input - Text, array, or object of texts to translate
-	 * @param opts - Translation options
-	 * @returns Promise resolving to translation response(s)
-	 */
-	export function translate<Input extends translate.Input>(
-		input: Input,
-		opts?: translate.RequestOptions,
-	): translate.TranslationResponseStructure<Input>;
-
+export declare namespace googleTranslateApi {
 	/**
 	 * Options for translation requests
 	 */
@@ -132,7 +120,7 @@ declare namespace translate {
 	 * Generated from https://translate.google.com
 	 * See https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
 	 */
-	export enum languages {
+	export const enum languages {
 		"auto" = "Detect language",
 		"ab" = "Abkhaz",
 		"ace" = "Acehnese",
@@ -379,58 +367,73 @@ declare namespace translate {
 		"zap" = "Zapotec",
 		"zu" = "Zulu",
 	}
-
-	/**
-	 * Translator class for creating reusable translator instances
-	 */
-	export class Translator {
-		constructor(options?: RequestOptions);
-		translate<Input extends translate.Input>(
-			input: Input,
-			opts?: RequestOptions,
-		): TranslationResponseStructure<Input>;
-		options: RequestOptions;
-	}
-
-	/**
-	 * Function to get spoken audio of translated text
-	 * @param input - Text, array, or object of texts to speak
-	 * @param opts - Translation options, the `to` field is used for the language spoken in
-	 * @returns Promise resolving to Base64 string(s) encoding mp3 audio
-	 */
-	export function speak<Input extends translate.Input>(
-		input: Input,
-		opts?: RequestOptions,
-	): SpeakResponseStructure<Input>;
-
-	/**
-	 * Function to translate a single string
-	 * @param input - Text to translate
-	 * @param opts - Translation options
-	 * @returns Promise resolving to translation response
-	 */
-	export function singleTranslate(
-		input: string,
-		opts?: RequestOptions,
-	): TranslationResponseStructure<string>;
-
-	/**
-	 * Bypass any single translate options and forces batch translation
-	 */
-	export const batchTranslate: typeof translate;
-
-
-	/**
-	 * Returns true if the desiredLang is supported by Google Translate and false otherwise
-	 * @param desiredLang – the ISO 639-1 code or the name of the desired language
-	 * @returns True if supported, false otherwise
-	 */
-	export function isSupported(desiredLang: string): boolean;
-
-	/**
-	 * Returns the ISO 639-1 code of the desiredLang – if it is supported by Google Translate
-	 * @param desiredLang – the name or the code (case sensitive) of the desired language
-	 * @returns The ISO 639-1 code of the language or null if the language is not supported
-	 */
-	export function getCode(desiredLang: string): string | null;
 }
+
+/**
+ * Main translation function
+ * @param input - Text, array, or object of texts to translate
+ * @param opts - Translation options
+ * @returns Promise resolving to translation response(s)
+ */
+declare function translate<Input extends googleTranslateApi.Input>(
+	input: Input,
+	opts?: googleTranslateApi.RequestOptions,
+): googleTranslateApi.TranslationResponseStructure<Input>;
+
+/**
+ * Translator class for creating reusable translator instances
+ */
+declare class Translator {
+	constructor(options?: googleTranslateApi.RequestOptions);
+	translate<Input extends googleTranslateApi.Input>(
+		input: Input,
+		opts?: googleTranslateApi.RequestOptions,
+	): googleTranslateApi.TranslationResponseStructure<Input>;
+	options: googleTranslateApi.RequestOptions;
+}
+
+/**
+ * Function to get spoken audio of translated text
+ * @param input - Text, array, or object of texts to speak
+ * @param opts - Translation options, the `to` field is used for the language spoken in
+ * @returns Promise resolving to Base64 string(s) encoding mp3 audio
+ */
+declare function speak<Input extends googleTranslateApi.Input>(
+	input: Input,
+	opts?: googleTranslateApi.RequestOptions,
+): googleTranslateApi.SpeakResponseStructure<Input>;
+
+/**
+ * Function to translate a single string
+ * @param input - Text to translate
+ * @param opts - Translation options
+ * @returns Promise resolving to translation response
+ */
+declare function singleTranslate(
+	input: string,
+	opts?: googleTranslateApi.RequestOptions,
+): googleTranslateApi.TranslationResponseStructure<string>;
+
+/**
+ * Bypass any single translate options and forces batch translation
+ */
+declare const batchTranslate: typeof translate;
+
+/**
+ * Object containing supported languages
+ */
+declare const languages: typeof googleTranslateApi.languages;
+
+/**
+ * Returns true if the desiredLang is supported by Google Translate and false otherwise
+ * @param desiredLang – the ISO 639-1 code or the name of the desired language
+ * @returns True if supported, false otherwise
+ */
+declare function isSupported(desiredLang: string): boolean;
+
+/**
+ * Returns the ISO 639-1 code of the desiredLang – if it is supported by Google Translate
+ * @param desiredLang – the name or the code (case sensitive) of the desired language
+ * @returns The ISO 639-1 code of the language or null if the language is not supported
+ */
+declare function getCode(desiredLang: string): string | null;
