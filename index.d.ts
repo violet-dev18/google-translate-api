@@ -203,7 +203,6 @@ export declare namespace googleTranslateApi {
 		"cnh" = "Hakha Chin",
 		"ha" = "Hausa",
 		"haw" = "Hawaiian",
-		"he" = "Hebrew",
 		"iw" = "Hebrew",
 		"hil" = "Hiligaynon",
 		"hi" = "Hindi",
