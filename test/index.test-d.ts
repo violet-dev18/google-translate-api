@@ -28,4 +28,4 @@ expectType<Promise<{a: googleTranslateApi.TranslationResponse, b: googleTranslat
 expectType<boolean>(isSupported('en'));
 expectType<string | null>(getCode('en'));
 expectAssignable<Record<string, string>>(languages);
-expectType<string>(googleTranslateApi.languages.en);
+expectType<"English">(googleTranslateApi.languages.en);
