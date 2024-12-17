@@ -18,21 +18,43 @@ const dataArray = JSON.parse(dataArrayString.groups.data);
 const langs = dataArray[0];
 
 // TS DEFINITIONS INJECTION
-const tsFileString = readFileSync(typeDefinitionsPath, {encoding: 'utf-8'});
+// Object
+(function (){
+	const tsFileString = readFileSync(typeDefinitionsPath, {encoding: 'utf-8'});
 
-const tsTargetStart = '	export enum languages {\n';
-let tsInjection = tsTargetStart;
-for (const lang of langs) {
-	tsInjection += `		"${lang[0]}" = "${lang[1]}",\n`;
-}
+	const tsTargetStart = 'declare enum languages {\n';
+	let tsInjection = tsTargetStart;
+	for (const lang of langs) {
+		tsInjection += `	"${lang[0]}" = "${lang[1]}",\n`;
+	}
 
-const tsFirstHalf = tsFileString.slice(0, tsFileString.indexOf(tsTargetStart));
+	const tsFirstHalf = tsFileString.slice(0, tsFileString.indexOf(tsTargetStart));
 
-const tsTargetEnd = '	}';
-let tsEndHalf = tsFileString.slice(tsFileString.indexOf(tsTargetStart));
-tsEndHalf = tsEndHalf.slice(tsEndHalf.indexOf(tsTargetEnd));
+	const tsTargetEnd = '}';
+	let tsEndHalf = tsFileString.slice(tsFileString.indexOf(tsTargetStart));
+	tsEndHalf = tsEndHalf.slice(tsEndHalf.indexOf(tsTargetEnd));
 
-writeFileSync( typeDefinitionsPath, tsFirstHalf + tsInjection + tsEndHalf );
+	writeFileSync( typeDefinitionsPath, tsFirstHalf + tsInjection + tsEndHalf );
+})();
+
+// Constant enum of languages
+(function (){
+	const tsFileString = readFileSync(typeDefinitionsPath, {encoding: 'utf-8'});
+
+	const tsTargetStart = '	export const enum languages {\n';
+	let tsInjection = tsTargetStart;
+	for (const lang of langs) {
+		tsInjection += `		"${lang[0]}" = "${lang[1]}",\n`;
+	}
+
+	const tsFirstHalf = tsFileString.slice(0, tsFileString.indexOf(tsTargetStart));
+
+	const tsTargetEnd = '	}';
+	let tsEndHalf = tsFileString.slice(tsFileString.indexOf(tsTargetStart));
+	tsEndHalf = tsEndHalf.slice(tsEndHalf.indexOf(tsTargetEnd));
+
+	writeFileSync( typeDefinitionsPath, tsFirstHalf + tsInjection + tsEndHalf );
+})();
 
 // JS FILE INJECTION
 
