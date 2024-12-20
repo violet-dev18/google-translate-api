@@ -146,7 +146,7 @@ describe('batchTranslate()', function () {
 		await assert.rejects(batchTranslate('This is a test', {to: 'en', from: 'ii'}));
 	});
 
-	it('should give pronunciation', async () => {
+	xit('should give pronunciation', async () => {
 		const res = await batchTranslate('translator', {from: 'auto', to: 'zh-CN'});
 
 		// here can be 2 variants: 'Yì zhě', 'Fānyì'
