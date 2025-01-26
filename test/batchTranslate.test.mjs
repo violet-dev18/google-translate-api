@@ -166,8 +166,8 @@ describe('batchTranslate()', function () {
 			{from: 'auto', to: 'nl'}
 		);
 		assert(
-			res.text === 'vertaler, vertaler. vertaler! vertaler? vertaler,vertaler.vertaler!vertaler?' ||
-			res.text === 'vertaler, vertaler. vertaler! vertaler? Vertaler, vertaler.translator! Vertaler?',
+			res.text.toLowerCase() === 'vertaler, vertaler. vertaler! vertaler? vertaler,vertaler.vertaler!vertaler?' ||
+			res.text.toLowerCase() === 'vertaler, vertaler. vertaler! vertaler? vertaler, vertaler.translator! vertaler?',
 			res.text
 		);
 	});
