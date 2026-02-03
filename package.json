@@ -12,7 +12,6 @@
     "index.cjs"
   ],
   "scripts": {
-    "prepare": "git config core.hooksPath ./.hooks",
     "lint": "eslint --ext .cjs,.mjs index.cjs lib test tools && tsd -f ./test",
     "test": "mocha --parallel",
     "release": "npm run lint && npm t && np --yolo --no-release-draft",
@@ -63,3 +62,4 @@
     "url": "https://github.com/sponsors/AidanWelch"
   }
 }
+
